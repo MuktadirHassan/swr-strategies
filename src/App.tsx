@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import SWRInfnite from "./SWRInfnite";
+import { SWRLoadAsPage } from "./SWRLoad";
+
+export const fetcher = (url: string) =>
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => data);
 
 function App() {
+  const [state, setState] = useState(false);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => setState(!state)}>Switch</button>
+      {state ? <SWRLoadAsPage /> : <SWRInfnite />}
     </div>
   );
 }
